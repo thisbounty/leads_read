@@ -7,6 +7,11 @@ myvenv/
 obj/
 venv/
 
+include/
+lib/
+pip-selfcheck.json
+
+
 *.DS_Store
 *.cache
 *.coverage
