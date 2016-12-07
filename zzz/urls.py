@@ -29,7 +29,7 @@ class LeadSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Lead
         #fields = ('project_id', 'title', 'description', 'skills', 'url')
-        fields = ('project_id', 'title', 'description', 'url')
+        fields = ('title', 'description', 'url', 'skills','price')
 
 
 # ViewSets define the view behavior.

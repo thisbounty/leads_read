@@ -13,7 +13,8 @@ class Lead(models.Model):
     project_id = models.IntegerField(blank=True, null=True)  # add unique=True
     title = models.CharField(max_length=200, blank=True)
     description = models.TextField(blank=True)
-    # skills = models.OneToOneField(Skills)
+    skills = models.TextField(blank=True)
+    price = models.CharField(max_length=200)
     url = models.URLField(blank=True)
 
     # owner = models.ForeignKey('auth.User', related_name='leads', on_delete=models.CASCADE, blank=True)
