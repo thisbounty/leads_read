@@ -29,18 +29,23 @@ class LeadSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Lead
         #fields = ('project_id', 'title', 'description', 'skills', 'url')
-        fields = ('title', 'description', 'url', 'skills','price')
+        fields = ('id','title', 'description', 'url', 'skills','price', 'bid_details', 'bid_budget', 'bid_days', 'bid_submitted')
 
 
 # ViewSets define the view behavior.
 class LeadViewSet(viewsets.ModelViewSet):
-    queryset = Lead.objects.all()
+    queryset = Lead.objects.filter(bid_details__exact='')
     serializer_class = LeadSerializer
 
+# ViewSets define the view behavior.
+class BidViewSet(viewsets.ModelViewSet):
+    queryset = Lead.objects.exclude(bid_details__exact='')
+    serializer_class = LeadSerializer
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(r'leads', LeadViewSet)
+router.register(r'bids', BidViewSet)
 
 
 # Wire up our API using automatic URL routing.

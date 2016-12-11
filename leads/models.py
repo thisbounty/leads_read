@@ -16,6 +16,10 @@ class Lead(models.Model):
     skills = models.TextField(blank=True)
     price = models.CharField(max_length=200)
     url = models.URLField(blank=True)
+    bid_details = models.TextField(blank=True)
+    bid_budget = models.IntegerField(blank=True)
+    bid_days =  models.IntegerField(blank=True)
+    bid_submitted= models.BooleanField(default=0)
 
     # owner = models.ForeignKey('auth.User', related_name='leads', on_delete=models.CASCADE, blank=True)
 
