@@ -19,6 +19,7 @@ from django.conf.urls import url, include
 from rest_framework import routers, serializers, viewsets
 from leads import views
 from leads.models import Lead
+from django.db.models.functions import Length
 
 router = routers.DefaultRouter()
 router.register(r'leads', views.LeadViewSet)
@@ -34,12 +35,12 @@ class LeadSerializer(serializers.HyperlinkedModelSerializer):
 
 # ViewSets define the view behavior.
 class LeadViewSet(viewsets.ModelViewSet):
-    queryset = Lead.objects.filter(bid_details__exact='')
+    queryset = Lead.objects.filter(bid_details__isnull=True)
     serializer_class = LeadSerializer
 
 # ViewSets define the view behavior.
 class BidViewSet(viewsets.ModelViewSet):
-    queryset = Lead.objects.exclude(bid_details__exact='')
+    queryset = Lead.objects.exclude(bid_details__isnull=True).exclude(bid_submitted=True).annotate(bid_length=Length('bid_details')).filter(bid_length__gt=0)
     serializer_class = LeadSerializer
 
 # Routers provide an easy way of automatically determining the URL conf.
